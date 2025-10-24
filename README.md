@@ -41,7 +41,7 @@ The `MiniBank-Demo.mp4` video demonstrates the full transaction lifecycle, from 
 To play the video directly in the README, the native HTML `<video>` tag is used.
 
 <p align="center">
-  <video src="./MiniBank-Demo.mp4" controls="controls" muted width="80%">
+  <video src="https://github.com/Skanda-10/Mini_Bank2/raw/refs/heads/main/MiniBank-Demo.mp4" controls="controls" muted width="80%">
     Your browser does not support the video tag.
   </video>
 </p>
