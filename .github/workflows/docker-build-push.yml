@@ -24,10 +24,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
 
       # ... (all previous steps)
-
-      - name: Build and Push Docker Compose Images (FIXED COMMAND AND PATH)
-        # 🎯 FIX: Change directory to the nested repository root
-        # before running docker compose.
-        run: |
-          cd Mini_Bank2
-          docker compose build && docker compose push
+      - name: Build and Push Docker Compose Images (FINAL FIX)
+      # REMOVE the 'cd Mini_Bank2' line entirely
+        run: docker compose build && docker compose push
