@@ -13,6 +13,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
+      # This action ensures all Docker capabilities are available
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
         
@@ -22,5 +23,6 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build and Push Docker Compose Images
-        run: docker-compose build && docker-compose push
+      - name: Build and Push Docker Compose Images (FIXED COMMAND)
+        # 🚨 FIX: Changed 'docker-compose' to 'docker compose'
+        run: docker compose build && docker compose push
