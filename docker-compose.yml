@@ -14,7 +14,7 @@ services:
   # 2. Eureka Service Discovery Server
   eureka-server:
     build:
-      context: ./Eureka-Server
+      context: ./eureka-server
       dockerfile: Dockerfile
     # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-eureka-server:latest
@@ -29,7 +29,7 @@ services:
   # 3. Account Microservice (Calls Transaction-Service)
   account-service:
     build:
-      context: ./Account-Service
+      context: ./account-service
       dockerfile: Dockerfile
     # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-account-service:latest
@@ -45,7 +45,7 @@ services:
 
   transaction-service:
     build:
-      context: ./Transaction-Service
+      context: ./transaction-service
       dockerfile: Dockerfile
     # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-transaction-service:latest
@@ -66,7 +66,7 @@ services:
   # 5. Ledger Microservice
   ledger-server:
     build:
-      context: ./Ledger-Server
+      context: ./ledger-server
       dockerfile: Dockerfile
     # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-ledger-server:latest
