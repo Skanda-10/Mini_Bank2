@@ -1,0 +1,11 @@
+# This file is active only when the 'docker' profile is specified
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+eureka:
+  instance:
+    # Overrides 'localhost' in the default application.yml
+    # Must match the service name defined in docker-compose.yml
+    hostname: eureka-server

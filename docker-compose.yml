@@ -1,0 +1,88 @@
+version: '3.8'
+
+services:
+  # 1. RabbitMQ Messaging Server
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    ports:
+      - "5672:5672"  # App communication
+      - "15672:15672" # Management UI
+    hostname: rabbitmq
+    networks:
+      - minibank-net
+
+  # 2. Eureka Service Discovery Server
+  eureka-server:
+    build:
+      context: ./Eureka-Server
+      dockerfile: Dockerfile
+    # 💥 Updated Image Tag 💥
+    image: skanda000007/minibank-eureka-server:latest
+    container_name: eureka-server
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - minibank-net
+
+  # 3. Account Microservice (Calls Transaction-Service)
+  account-service:
+    build:
+      context: ./Account-Service
+      dockerfile: Dockerfile
+    # 💥 Updated Image Tag 💥
+    image: skanda000007/minibank-account-service:latest
+    container_name: account-service
+    ports:
+      - "8080:8080"
+    depends_on:
+      - eureka-server
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - minibank-net
+
+  # 4. Transaction Microservice (WITH LOAD BALANCING)
+  transaction-service:
+    build:
+      context: ./Transaction-Service
+      dockerfile: Dockerfile
+    # 💥 Updated Image Tag 💥
+    image: skanda000007/minibank-transaction-service:latest
+    container_name: transaction-service-1
+    ports:
+      - "8082" # Internal port exposure only
+    depends_on:
+      - eureka-server
+      - account-service
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    deploy:
+      replicas: 2
+    networks:
+      - minibank-net
+
+  # 5. Ledger Microservice
+  ledger-server:
+    build:
+      context: ./Ledger-Server
+      dockerfile: Dockerfile
+    # 💥 Updated Image Tag 💥
+    image: skanda000007/minibank-ledger-server:latest
+    container_name: ledger-server
+    ports:
+      - "8090:8090"
+    depends_on:
+      - rabbitmq
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    networks:
+      - minibank-net
+
+# Define a custom bridge network for all services to communicate
+networks:
+  minibank-net:
+    driver: bridge

@@ -1,0 +1,11 @@
+# This file is active only when the 'docker' profile is specified
+spring:
+  config:
+    activate:
+      on-profile: docker
+
+eureka:
+  client:
+    service-url:
+      # Change from 'localhost:8761' to the Eureka Docker service name
+      defaultZone: http://eureka-server:8761/eureka/
