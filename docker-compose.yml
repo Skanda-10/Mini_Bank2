@@ -43,7 +43,7 @@ services:
   # 4. Transaction Microservice
   transaction-service:
     build:
-      context: ./Transaction-Server # 💥 CORRECTED PATH 💥
+      context: ./Transaction-Server/Transaction-Service # 💥 CORRECTED PATH 💥
       dockerfile: Dockerfile
     image: skanda000007/minibank-transaction-service:latest
     ports:
@@ -62,7 +62,7 @@ services:
   # 5. Ledger Microservice
   ledger-server:
     build:
-      context: ./Ledger-Server # 💥 CORRECTED PATH 💥
+      context: ./Ledger-Server/Ledger-Server # 💥 CORRECTED PATH 💥
       dockerfile: Dockerfile
     image: skanda000007/minibank-ledger-server:latest
     container_name: ledger-server
