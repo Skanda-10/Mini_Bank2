@@ -13,7 +13,7 @@ services:
   # 2. Eureka Service Discovery Server
   eureka-server:
     build:
-      context: ./eureka-server # This path was already correct
+      context: ./eureka-server/eureka-server # This path was already correct
       dockerfile: Dockerfile
     image: skanda000007/minibank-eureka-server:latest
     container_name: eureka-server
