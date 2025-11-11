@@ -1,4 +1,3 @@
-
 services:
   # 1. RabbitMQ Messaging Server
   rabbitmq:
@@ -14,9 +13,8 @@ services:
   # 2. Eureka Service Discovery Server
   eureka-server:
     build:
-      context: ./eureka-server
+      context: ./eureka-server # This path was already correct
       dockerfile: Dockerfile
-    # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-eureka-server:latest
     container_name: eureka-server
     ports:
@@ -29,9 +27,8 @@ services:
   # 3. Account Microservice (Calls Transaction-Service)
   account-service:
     build:
-      context: ./account-service
+      context: ./Account-Server # 💥 CORRECTED PATH 💥
       dockerfile: Dockerfile
-    # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-account-service:latest
     container_name: account-service
     ports:
@@ -43,13 +40,12 @@ services:
     networks:
       - minibank-net
 
+  # 4. Transaction Microservice
   transaction-service:
     build:
-      context: ./transaction-service
+      context: ./Transaction-Server # 💥 CORRECTED PATH 💥
       dockerfile: Dockerfile
-    # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-transaction-service:latest
-    # REMOVE THIS LINE: container_name: transaction-service-1
     ports:
       - "8082" # Internal port exposure only
     depends_on:
@@ -59,16 +55,15 @@ services:
     environment:
       - SPRING_PROFILES_ACTIVE=docker
     deploy:
-      replicas: 2  # ✅ Keep this for load balancing!
+      replicas: 2
     networks:
       - minibank-net
 
   # 5. Ledger Microservice
   ledger-server:
     build:
-      context: ./ledger-server
+      context: ./Ledger-Server # 💥 CORRECTED PATH 💥
       dockerfile: Dockerfile
-    # 💥 Updated Image Tag 💥
     image: skanda000007/minibank-ledger-server:latest
     container_name: ledger-server
     ports:
